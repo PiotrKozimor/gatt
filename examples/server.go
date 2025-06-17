@@ -1,4 +1,5 @@
-// +build
+//go:build ignore
+// +build ignore
 
 package main
 
@@ -6,9 +7,9 @@ import (
 	"fmt"
 	"log"
 
-	"github.com/paypal/gatt"
-	"github.com/paypal/gatt/examples/option"
-	"github.com/paypal/gatt/examples/service"
+	"github.com/PiotrKozimor/gatt"
+	"github.com/PiotrKozimor/gatt/examples/option"
+	"github.com/PiotrKozimor/gatt/examples/service"
 )
 
 func main() {
