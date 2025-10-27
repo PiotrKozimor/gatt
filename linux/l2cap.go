@@ -35,6 +35,10 @@ type conn struct {
 	aclc chan *aclData
 }
 
+func (c *conn) Handle() uint16 {
+	return c.attr
+}
+
 func newConn(hci *HCI, hh uint16) *conn {
 	return &conn{
 		hci:  hci,

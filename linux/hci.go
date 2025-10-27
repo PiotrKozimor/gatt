@@ -43,7 +43,7 @@ type PlatData struct {
 	Connectable bool
 	RSSI        int8
 
-	Conn io.ReadWriteCloser
+	Conn *conn
 }
 
 func NewHCI(devID int, chk bool, maxConn int) (*HCI, error) {

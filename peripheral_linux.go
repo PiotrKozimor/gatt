@@ -333,8 +333,35 @@ func (p *peripheral) SetIndicateValue(c *Characteristic,
 	return p.setNotifyValue(c, gattCCCIndicateFlag, f)
 }
 
+type Rssi struct {
+	Handle uint16
+}
+
+func (r *Rssi) Marshal(b []byte) {
+	binary.LittleEndian.PutUint16(b, r.Handle)
+}
+
+func (r *Rssi) Opcode() int {
+	code := (0x05 << 10) | 0x05
+	// 0x1405
+	return code
+}
+func (r *Rssi) Len() int {
+	return 2
+}
+
 func (p *peripheral) ReadRSSI() int {
-	// TODO: implement
+	b, err := p.d.SendHCIRawCommand(
+		&Rssi{
+			Handle: p.pd.Conn.Handle(),
+		},
+	)
+	if err != nil {
+		return -1
+	}
+	if len(b) >= 4 {
+		return int(b[3])
+	}
 	return -1
 }
 
