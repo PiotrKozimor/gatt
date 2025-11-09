@@ -87,9 +87,9 @@ func (d *device) Init(f func(Device, State)) error {
 		if d.peripheralConnected != nil {
 			go d.peripheralConnected(p, nil)
 		}
-		p.loop()
+		err := p.loop()
 		if d.peripheralDisconnected != nil {
-			d.peripheralDisconnected(p, nil)
+			d.peripheralDisconnected(p, err)
 		}
 	}
 	d.hci.AdvertisementHandler = func(pd *linux.PlatData) {

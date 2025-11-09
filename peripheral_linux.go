@@ -391,7 +391,7 @@ func (p *peripheral) sendReq(op byte, b []byte) []byte {
 	return <-m.rspc
 }
 
-func (p *peripheral) loop() {
+func (p *peripheral) loop() error {
 	// Serialize the request.
 	rspc := make(chan []byte)
 
@@ -428,7 +428,7 @@ func (p *peripheral) loop() {
 		n, err := p.l2c.Read(buf)
 		if n == 0 || err != nil {
 			close(p.quitc)
-			return
+			return err
 		}
 
 		b := make([]byte, n)
